@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recovery Guidance</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        button:disabled {
+            background-color: gray;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <header>
+            <h1>Recovery Guidance</h1>
+            <p>Get recovery tips for faster healing and well-being.</p>
+        </header>
+        <main>
+            <textarea id="recoveryInput" placeholder="Enter your condition (e.g., surgery recovery, cold recovery)" oninput="toggleButton()"></textarea>
+            <button id="recoveryButton" onclick="getRecoveryGuidance()" disabled>Get Recovery Tips</button>
+            <div id="result"></div>
+        </main>
+    </div>
+
+    <script>
+        function toggleButton() {
+            let input = document.getElementById("recoveryInput").value.trim();
+            document.getElementById("recoveryButton").disabled = input === "";
+        }
+
+        function getRecoveryGuidance() {
+            let input = document.getElementById("recoveryInput").value.toLowerCase().trim();
+            let resultDiv = document.getElementById("result");
+
+            if (input === "") {
+                resultDiv.innerHTML = `<p style="color: red;">Please enter a condition before proceeding.</p>`;
+                return;
+            }
+
+            let recoveryTips = {
+                "surgery recovery": "Follow your doctor’s advice, take prescribed medications, rest well, and avoid strenuous activities.",
+                "cold recovery": "Stay hydrated, get plenty of rest, and consume warm fluids like herbal tea or soup.",
+                "fracture recovery": "Keep the affected area immobilized, follow physiotherapy if advised, and ensure proper calcium intake.",
+                "fever recovery": "Rest adequately, drink electrolyte-rich fluids, and take fever-reducing medication if necessary.",
+                "injury recovery": "Apply ice packs, keep the injured area elevated, and follow proper wound care.",
+                "covid recovery": "Stay isolated if needed, follow a nutrient-rich diet, and gradually increase physical activity.",
+                "flu recovery": "Increase vitamin C intake, rest sufficiently, and avoid cold or sugary drinks."
+            };
+
+            let response = recoveryTips[input];
+
+            if (response) {
+                resultDiv.innerHTML = `<p><strong>Recovery Tip:</strong> ${response}</p>`;
+            } else {
+                resultDiv.innerHTML = `
+                    <p>We couldn't find specific advice for this condition. For reliable recovery guidance, visit:</p>
+                    <a href="https://www.webmd.com/" target="_blank" class="external-link">WebMD Recovery Guide</a>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

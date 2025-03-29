@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Injury Image</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <div class="overlay">
+        <header>
+            <h1>Upload Your Injury Image</h1>
+            <p>Our AI will analyze and give recommendations</p>
+        </header>
+
+        <main>
+            <input type="file" id="imageInput" accept="image/*">
+            <img id="preview" src="#" alt="Image Preview" style="display: none; width: 200px; height: auto; margin-top: 10px;">
+            <button id="scanButton" onclick="uploadImage()" disabled>📤 Submit Image</button>
+            <div id="result"></div>
+        </main>
+
+        <button onclick="window.location.href='./indexx.html'">🏠 Back to Home</button>
+    </div>
+
+    <script>
+        document.getElementById('imageInput').onchange = function(event) {
+            let reader = new FileReader();
+            reader.onload = function() {
+                let img = document.getElementById('preview');
+                img.src = reader.result;
+                img.style.display = "block";
+                document.getElementById("scanButton").disabled = false;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        };
+
+        function uploadImage() {
+            let imageFile = document.getElementById("imageInput").files[0];
+            let resultDiv = document.getElementById("result");
+
+            if (!imageFile) {
+                alert("Please select an image first.");
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append("image", imageFile);
+
+            // Show scanning effect
+            resultDiv.innerHTML = `<p style="color: yellow;">Scanning... Please wait.</p>`;
+
+            fetch("/scan", {  
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                resultDiv.innerHTML = `
+                    <p><strong>Injury:</strong> ${data.injury}</p>
+                    <p><strong>Advice:</strong> ${data.tips}</p>
+                `;
+            })
+            .catch(error => {
+                resultDiv.innerHTML = `<p style="color: red;">Error scanning image. Please try again.</p>`;
+                console.error("Error:", error);
+            });
+        }
+    </script>
+
+</body>
+</html>

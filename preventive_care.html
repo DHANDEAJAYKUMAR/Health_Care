@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preventive Care</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        button:disabled {
+            background-color: gray;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <header>
+            <h1>Preventive Care & Wellness</h1>
+            <p>Stay healthy with regular check-ups, a balanced lifestyle, and preventive measures.</p>
+        </header>
+        <main>
+            <textarea id="healthConcernInput" placeholder="Enter a health concern (e.g., heart health, diabetes prevention)" oninput="toggleButton()"></textarea>
+            <button id="preventiveButton" onclick="getPreventiveCare()" disabled>Get Preventive Tips</button>
+            <div id="result"></div>
+        </main>
+    </div>
+
+    <script>
+        function toggleButton() {
+            let input = document.getElementById("healthConcernInput").value.trim();
+            document.getElementById("preventiveButton").disabled = input === "";
+        }
+
+        function getPreventiveCare() {
+            let input = document.getElementById("healthConcernInput").value.toLowerCase().trim();
+            let resultDiv = document.getElementById("result");
+
+            if (input === "") {
+                resultDiv.innerHTML = `<p style="color: red;">Please enter a health concern before proceeding.</p>`;
+                return;
+            }
+
+            let preventionTips = {
+                "heart health": "Maintain a balanced diet, exercise regularly, avoid smoking, and manage stress effectively.",
+                "diabetes prevention": "Monitor sugar intake, stay physically active, and maintain a healthy weight.",
+                "mental well-being": "Practice mindfulness, stay connected with loved ones, and get enough sleep.",
+                "nutrition": "Eat a variety of fruits, vegetables, and whole grains while avoiding processed foods.",
+                "exercise": "Engage in at least 30 minutes of moderate activity daily for overall well-being.",
+                "immunity": "Get vaccinated, eat vitamin-rich foods, and follow proper hygiene habits.",
+                "cancer prevention": "Get regular screenings, avoid tobacco, and follow a healthy lifestyle."
+            };
+
+            let response = preventionTips[input];
+
+            if (response) {
+                resultDiv.innerHTML = `<p><strong>Preventive Tip:</strong> ${response}</p>`;
+            } else {
+                resultDiv.innerHTML = `
+                    <p>We couldn't find specific advice for this concern. For reliable preventive care information, visit:</p>
+                    <a href="https://www.cdc.gov/prevention" target="_blank" class="external-link">CDC Preventive Care Guide</a>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptom Checker</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        a {
+            color: blue;
+            text-decoration: underline;
+            font-weight: bold;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        
+        a:hover {
+            color: darkblue;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        button:disabled {
+            background-color: gray;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="overlay">
+        <header>
+            <h1>Enter Your Symptoms</h1>
+        </header>
+        <main>
+            <textarea id="symptomInput" placeholder="Enter symptoms (e.g., fever, cold, stomach pain)" oninput="toggleButton()"></textarea>
+            <button id="symptomButton" onclick="checkSymptoms()" disabled>Get Recommendations</button>
+            <div id="result"></div>
+        </main>
+    </div>
+
+    <script>
+        function toggleButton() {
+            let input = document.getElementById("symptomInput").value.trim();
+            document.getElementById("symptomButton").disabled = input === "";
+        }
+
+        function checkSymptoms() {
+            let input = document.getElementById("symptomInput").value.toLowerCase().trim();
+            let resultDiv = document.getElementById("result");
+
+            if (input === "") {
+                resultDiv.innerHTML = `<p style="color: red;">Please enter a symptom before proceeding.</p>`;
+                return;
+            }
+
+            let recommendations = {
+                "fever": "Drink plenty of fluids, rest, and take paracetamol if needed.",
+                "cold": "Stay hydrated, get enough rest, and consider taking vitamin C.",
+                "stomach pain": "Avoid spicy foods, drink warm water, and take probiotics.",
+                "headache": "Rest in a quiet place, stay hydrated, and reduce screen time.",
+                "cough": "Drink warm tea with honey, avoid cold drinks, and take cough syrup.",
+                "fatigue": "Ensure proper sleep, reduce stress, and maintain a balanced diet.",
+                "nausea": "Drink ginger tea, avoid greasy foods, and stay hydrated.",
+                "sore throat": "Gargle with warm salt water, stay hydrated, and avoid irritants."
+            };
+
+            let response = recommendations[input];
+
+            if (response) {
+                resultDiv.innerHTML = `<p><strong>Recommendation:</strong> ${response}</p>`;
+            } else {
+                let searchLink = `https://www.mayoclinic.org/`;
+                resultDiv.innerHTML = `
+                    <p><strong>We couldn’t find a recommendation for this symptom.</strong></p>
+                    <p>If you are experiencing serious or persistent symptoms, we strongly recommend consulting a healthcare professional.</p>
+                    <p>For more general health information, you can visit the following link:</p>
+                    <a href="${searchLink}" target="_blank">Visit Mayo Clinic Official Website</a>
+                `;
+            }
+        }
+    </script>
+    
+</body>
+</html>

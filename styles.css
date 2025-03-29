@@ -1,0 +1,117 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: url(doctor.png) no-repeat center center/cover; /* Ensures the same background image */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Overlay for better readability */
+.overlay {
+    background: rgba(0, 0, 0, 0.6); /* Dark overlay for better contrast */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+/* Glass effect background */
+.heading-container {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px 30px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    display: inline-block;
+}
+
+/* Shining Sky Blue Effect for "Healthcare Assist" */
+header h1 {
+    font-size: 60px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #00aaff;
+    text-shadow: 0 0 5px #00aaff, 0 0 10px #00ddff, 0 0 20px #00eeff;
+    animation: glow 1.5s infinite alternate;
+}
+
+/* Animation for shining effect */
+@keyframes glow {
+    0% {
+        color: white;
+        text-shadow: 
+            0 0 5px #00aaff, 
+            0 0 10px #00c3ff, 
+            0 0 15px rgba(0, 170, 255, 0.5), 
+            0 0 20px rgba(0, 255, 128, 0.7);
+    }
+    100% {
+        color: lightblue;
+        text-shadow: 
+            0 0 10px blue, 
+            0 0 20px #00ffff, 
+            0 0 30px rgba(0, 255, 255, 0.9), 
+            0 0 40px rgba(0, 255, 128, 1);
+    }
+}
+
+/* Centering Buttons */
+main {
+    margin-top: 20px;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Textarea Styling */
+textarea {
+    width: 60%;
+    height: 100px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    margin-bottom: 15px;
+    resize: none;
+}
+
+/* Styling for External Links */
+.external-link {
+    color: cyan;
+    text-decoration: underline;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.external-link:hover {
+    color: lightblue;
+}
